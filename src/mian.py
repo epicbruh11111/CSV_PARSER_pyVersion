@@ -31,7 +31,7 @@ class CSV:
             # Convert numeric strings in each row
             clean_rows = [self.__scheme(row) for row in rows]
 
-            self.__synatax_check(clean_rows,clean_cols)
+            
 
             return clean_cols, clean_rows
         except Exception as err:
@@ -60,8 +60,6 @@ class CSV:
             if len(i) != len(cols):
                 raise SyntaxError("columns and rows do not have the same length")
                 exit()
-
-                    
             
 
     def display(self, columns: List, rows: List[List], lines: int = 15) -> None:
@@ -74,10 +72,10 @@ class CSV:
 
 def main():
     try:
-        data = CSV("/home/ark/csv_parser/Data/test.csv")
+        data = CSV("./Data/test.csv")
         columns, rows = data.parse()
         data.display(columns, rows)
-
+        print(rows)
     except Exception as err:
         print(f"Error in main: {err}")
 
