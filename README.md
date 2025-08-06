@@ -1,53 +1,44 @@
-CSV Parser
-A lightweight Python-based CSV parser for reading and processing CSV files, handling common edge cases such as quoted fields, empty fields, and custom delimiters. The next version of this parser is planned to be implemented in C++ for improved performance.
-Features
+🌟 CSV Parser Extravaganza 🐍
+Welcome to the ultimate Python CSV parser! 🎉 This bad boy slices and dices CSV files into neat columns and rows, handling all the tricky stuff like quoted fields and custom delimiters. A C++ version is in the works to make it lightning-fast! ⚡️
+⚠️ HEADS UP: We CANNOT compile or interpret \n, \t, commas (,), or quotes (") inside strings. They’re treated as literal characters (e.g., \n stays \n, not a newline; " inside strings is just "). This is a hard limit for now, but we’ll tackle it in the C++ version. 😎
+🚀 Features
 
-Parses CSV files into a structured format with columns (headers) and rows (data).
-Supports common CSV edge cases:
-Quoted fields with commas (e.g., "Developer, Senior")
-Empty fields (e.g., ,, or ,"",)
-Line breaks within quoted fields (e.g., "Line 1\nLine 2")
-Custom delimiters (e.g., ,, ;, \t)
-Various line endings (\n, \r, \r\n)
+Turns CSV files into tidy columns (headers) and rows (data). 📋
 
+Simple API to load, parse, and display CSVs. 🛠️
+Basic error handling for wonky rows. 🚨
 
-Simple API for loading and parsing CSV files.
-Error handling for malformed CSV rows.
+🛠️ Setup
 
-Warning: The current version does not compile escape sequences like \n, \t, or commas (,) inside strings as literal characters. These are treated as part of the string content. For example, \n in a quoted field will be preserved as the characters \ and n, not interpreted as a newline. This limitation will be addressed in future versions.
-Installation
-
-Ensure Python 3.6+ is installed.
-Clone the repository:git clone <repository-url>
+Make sure you’ve got Python 3.6+ ready to roll. 🐍
+Clone the repo:git clone <repository-url>
 
 
-Navigate to the project directory:cd csv-parser
-
-
-(Optional) Install dependencies for development or testing:pip install -r requirements.txt
+Jump into the project folder:cd csv-parser
 
 
 
-Usage
-The parser provides a simple interface to load a CSV file, parse it into columns and rows, and display the results.
-Example
+
+🎯 How to Use It
+Load a CSV, parse it into columns and rows, and show off the results.
+Example Code
 from csv_parser import CSVParser
 
-# Load and parse a CSV file
+# Load and parse your CSV
 data = CSVParser('example.csv')
 col, row = data.parse()
 
-# Display the parsed data
+# Show the goods
 display(col, row)
 
-Example Input (example.csv)
+Sample Input (example.csv)
 name,age,description,city
 John,30,"Developer, Senior",New York
 Mary,,,"San Francisco"
 José,25,"Line 1\nLine 2","São Paulo"
 "Jane ""JD"" Doe",40,"He said ""hello""","Paris"
 
-Example Output
+Sample Output
 Columns: ['name', 'age', 'description', 'city']
 Rows: [
     ['John', '30', 'Developer, Senior', 'New York'],
@@ -56,42 +47,42 @@ Rows: [
     ['Jane "JD" Doe', '40', 'He said "hello"', 'Paris']
 ]
 
-API
+API Breakdown
 
-CSVParser(filepath): Initialize the parser with the path to a CSV file.
-parse(): Parse the CSV file and return a tuple (columns, rows) where:
-columns: List of header names (first row).
-rows: List of lists containing the data rows.
-
-
-display(columns, rows): Utility function to print the parsed columns and rows in a readable format.
-
-Limitations
-
-Escape Sequences: Special characters like \n, \t, or commas (,) within quoted strings are not compiled/interpreted (e.g., \n is treated as literal \n, not a newline). This is by design to preserve raw string content but may be enhanced in the C++ version.
-Performance: The Python version may not be optimized for very large CSV files (>1GB). The upcoming C++ version will address this with better memory management and performance.
-Encoding: Currently assumes UTF-8 encoding. Support for other encodings (e.g., UTF-16, ISO-8859-1) is limited.
-Error Handling: Basic error handling is implemented, but complex recovery from malformed CSVs (e.g., unclosed quotes) is not fully supported.
-
-Future Work
-
-C++ Version: The next version will be rewritten in C++ for better performance, especially for large files, and will include:
-Support for compiling escape sequences (e.g., \n as a newline).
-Enhanced error recovery for malformed CSVs.
-Broader encoding support.
-Streaming parsing for memory efficiency.
+CSVParser(filepath): Kicks things off with your CSV file path. 📂
+parse(): Returns (columns, rows) where:
+columns: List of header names. 📌
+rows: List of data rows. 📑
 
 
-Additional features like custom delimiter detection and validation of header uniqueness.
+display(columns, rows): Prints everything in a nice, readable format. 🖨️
 
-Contributing
-Contributions are welcome! Please submit a pull request or open an issue for bug reports or feature suggestions.
+😱 Limitations
 
-Fork the repository.
-Create a new branch (git checkout -b feature-branch).
-Commit your changes (git commit -m "Add feature").
-Push to the branch (git push origin feature-branch).
+No Escape Sequence Magic: \n, \t, commas (,), and quotes (") in strings are kept as literal characters. We CANNOT compile them (e.g., \n won’t turn into a newline). This is a big deal, but the C++ version will sort it out! 😤
+Big Files: Not great for massive CSVs (>1GB). The C++ version will handle these like a champ. 💪
+Encoding: Sticks to UTF-8 for now. Other encodings (e.g., UTF-16) might trip it up. 🌐
+Error Handling: Catches basic errors, but super messy CSVs (e.g., unclosed quotes) can still cause havoc. 🚧
+
+🔮 What’s Next?
+
+C++ Version: Coming soon to crush it with:
+Proper handling of escape sequences (e.g., \n as a newline). 🚀
+Speedy performance for huge files. ⚡️
+Better encoding support. 🌍
+Tougher error handling. 🛡️
+
+
+Smarter delimiter detection and header validation. 🔍
+
+🤝 Get Involved
+Wanna make this parser even cooler? Jump in! 🥳
+
+Fork the repo.
+Create a branch (git checkout -b cool-feature).
+Commit your awesomeness (git commit -m "Added epic stuff").
+Push it (git push origin cool-feature).
 Open a pull request.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+📜 License
+MIT License. Check out LICENSE for the deets. 📄
