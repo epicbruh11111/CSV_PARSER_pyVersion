@@ -57,9 +57,9 @@ rows: List of data rows. 📑
 
 display(columns, rows): Prints everything in a nice, readable format. 🖨️
 
-😱 Limitations
+Limitations
 
-No Escape Sequence Magic: \n, \t, commas (,), and quotes (") in strings are kept as literal characters. We CANNOT compile them (e.g., \n won’t turn into a newline). This is a big deal, but the C++ version will sort it out! 😤
+No Escape Sequence Magic: \n, \t, commas (,), and quotes (") in strings are kept as literal characters. We CANNOT compile them (e.g., \n won’t turn into a newline).
 Big Files: Not great for massive CSVs (>1GB). The C++ version will handle these like a champ. 💪
 Encoding: Sticks to UTF-8 for now. Other encodings (e.g., UTF-16) might trip it up. 🌐
 Error Handling: Catches basic errors, but super messy CSVs (e.g., unclosed quotes) can still cause havoc. 🚧
@@ -67,22 +67,10 @@ Error Handling: Catches basic errors, but super messy CSVs (e.g., unclosed quote
 🔮 What’s Next?
 
 C++ Version: Coming soon to crush it with:
-Proper handling of escape sequences (e.g., \n as a newline). 🚀
 Speedy performance for huge files. ⚡️
 Better encoding support. 🌍
 Tougher error handling. 🛡️
 
-
-Smarter delimiter detection and header validation. 🔍
-
-🤝 Get Involved
-Wanna make this parser even cooler? Jump in! 🥳
-
-Fork the repo.
-Create a branch (git checkout -b cool-feature).
-Commit your awesomeness (git commit -m "Added epic stuff").
-Push it (git push origin cool-feature).
-Open a pull request.
 
 📜 License
 MIT License. Check out LICENSE for the deets. 📄
