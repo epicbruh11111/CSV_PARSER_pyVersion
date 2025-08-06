@@ -1,39 +1,83 @@
-def parser(filepath: str,) -> list: # type: ignore
+import csv
+from typing import Tuple, List
 
-    try:
-        with open(filepath, "r") as file:
-            unformated_data = file.read()
-    except Exception as err:
-        print(f"error: {err}    args:{filepath}")
-        exit()
+class CSV:
+    def __init__(self, filepath: str) -> None:
+        self.filepath = filepath  # Store the file path for reading
 
-    lines = unformated_data.splitlines()
-    col = lines[0]
-    rows = lines[1:]
+    def parse(self) -> Tuple[List, List[List]]:
+        try:
+            with open(self.filepath, "r", newline='') as file:
+                reader = csv.reader(file)
+                lines = list(reader)  # Read all lines into a list of lists
+        except FileNotFoundError as err:
+            print(f"Error: File not found: {self.filepath}")
+            raise
+        except Exception as err:
+            print(f"Error reading file: {err}")
+            raise
 
-    cols = col.split(',')
-    row = []
+        if not lines:
+            print("Error: File is empty")
+            raise ValueError("Empty CSV file")
 
-    for i in rows:
-        index = i.split(",")
-        row.append(index)
+        try:
+            # First line is columns, rest are rows
+            cols = lines[0]
+            rows = lines[1:]
 
-    return cols,row # type: ignore
+            # Convert numeric strings in columns
+            clean_cols = self.__scheme(cols)
+            # Convert numeric strings in each row
+            clean_rows = [self.__scheme(row) for row in rows]
 
+            
 
-def display(columns, rows, lines=15):
-    print(" ".join(columns))
-    print("-" * lines)
-    for row in rows:
-        print(" ".join(row))
+            return clean_cols, clean_rows
+        except Exception as err:
+            print(f"Error parsing CSV data: {err}")
+            raise
 
-        
-    
-    
+    def __scheme(self, my_list: List, new_list: List = None) -> List: #type: ignore
+        if new_list is None:
+            new_list = []
+        for item in my_list:
+            if isinstance(item, str):
+                try:
+                    new_list.append(int(item))  # Convert numeric strings to int
+                except ValueError:
+                    try:
+                        new_list.append(float(item)) # Keep non-numeric strings as is
+                    except ValueError:
+                        new_list.append(item)
+            else:
+                new_list.append(item)  # Keep non-strings as is
+        return new_list
+
+    def __synatax_check(self,rows:list[list],cols:list):
+        # check for invalid length
+        for i in rows:
+            if len(i) != len(cols):
+                raise SyntaxError("columns and rows do not have the same length")
+                exit()
+            
+
+    def display(self, columns: List, rows: List[List], lines: int = 15) -> None:
+        # Convert all column elements to strings for display
+        print(" ".join(str(col) for col in columns))
+        print("-" * lines)
+        for row in rows:
+            # Convert all row elements to striss for iplayrow
+            print(" ".join(str(item) for item in row))
 
 def main():
-    columns,rows = parser("./test.csv")
-    display(columns,rows)
+    try:
+        data = CSV("./Data/test.csv")
+        columns, rows = data.parse()
+        data.display(columns, rows)
+        print(rows)
+    except Exception as err:
+        print(f"Error in main: {err}")
 
 if __name__ == "__main__":
     main()

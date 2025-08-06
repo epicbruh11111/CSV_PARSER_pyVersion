@@ -4,10 +4,10 @@ row = [
     ["TEST", "TEST", "TEST"],
     ["TEST", "TEST", "TEST"],
     ["TEST", "TEST", "TEST" ],
+    ["33", 22, "test"],
 ]
 
 # YOUR CODE:
-
 
 
 
