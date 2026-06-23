@@ -1,5 +1,5 @@
-import csv
-from typing import Tuple, List
+import csv 
+from typing import Tuple, List 
 
 class CSV:
     def __init__(self, filepath: str) -> None:
