@@ -1,44 +1,70 @@
-🌟 CSV Parser Extravaganza 🐍
-Welcome to the ultimate Python CSV parser! 🎉 This bad boy slices and dices CSV files into neat columns and rows, handling all the tricky stuff like quoted fields and custom delimiters. A C++ version is in the works to make it lightning-fast! ⚡️
-⚠️ HEADS UP: We CANNOT compile or interpret \n, \t, commas (,), or quotes (") inside strings. They’re treated as literal characters (e.g., \n stays \n, not a newline; " inside strings is just "). This is a hard limit for now, but we’ll tackle it in the C++ version. 😎
-🚀 Features
+# CSV Parser
 
-Turns CSV files into tidy columns (headers) and rows (data). 📋
+A Python CSV parser designed to process CSV files into structured columns and rows while handling common CSV features such as quoted fields and custom delimiters. A C++ version is planned to improve performance and scalability.
 
-Simple API to load, parse, and display CSVs. 🛠️
-Basic error handling for wonky rows. 🚨
+## Important Limitation
 
-🛠️ Setup
+**Current Limitation:** The parser cannot compile or interpret escape sequences or special characters such as `\n`, `\t`, commas (`,`), or quotation marks (`"`) inside strings. These are treated as literal characters. For example:
 
-Make sure you’ve got Python 3.6+ ready to roll. 🐍
-Clone the repo:git clone <repository-url>
+* `\n` remains the two-character sequence `\n` rather than becoming a newline.
+* `\t` remains the two-character sequence `\t` rather than becoming a tab.
 
+This limitation is expected to be addressed in the future C++ implementation.
 
-Jump into the project folder:cd csv-parser
+## Features
 
+* Parses CSV files into structured columns (headers) and rows (data).
+* Provides a simple API for loading, parsing, and displaying CSV data.
+* Includes basic error handling for malformed rows.
 
+## Requirements
 
+* Python 3.6 or later.
 
-🎯 How to Use It
-Load a CSV, parse it into columns and rows, and show off the results.
-Example Code
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Navigate to the project directory:
+
+```bash
+cd csv-parser
+```
+
+## Usage
+
+Load a CSV file, parse its contents, and display the resulting columns and rows.
+
+### Example Code
+
+```python
 from csv_parser import CSVParser
 
-# Load and parse your CSV
+# Load and parse the CSV file
 data = CSVParser('example.csv')
 col, row = data.parse()
 
-# Show the goods
+# Display the results
 display(col, row)
+```
 
-Sample Input (example.csv)
+### Sample Input (`example.csv`)
+
+```csv
 name,age,description,city
 John,30,"Developer, Senior",New York
 Mary,,,"San Francisco"
 José,25,"Line 1\nLine 2","São Paulo"
 "Jane ""JD"" Doe",40,"He said ""hello""","Paris"
+```
 
-Sample Output
+### Sample Output
+
+```python
 Columns: ['name', 'age', 'description', 'city']
 Rows: [
     ['John', '30', 'Developer, Senior', 'New York'],
@@ -46,31 +72,57 @@ Rows: [
     ['José', '25', 'Line 1\nLine 2', 'São Paulo'],
     ['Jane "JD" Doe', '40', 'He said "hello"', 'Paris']
 ]
+```
 
-API Breakdown
+## API Reference
 
-CSVParser(filepath): Kicks things off with your CSV file path. 📂
-parse(): Returns (columns, rows) where:
-columns: List of header names. 📌
-rows: List of data rows. 📑
+### `CSVParser(filepath)`
 
+Creates a parser instance using the specified CSV file path.
 
-display(columns, rows): Prints everything in a nice, readable format. 🖨️
+**Parameters:**
 
-Limitations
+* `filepath` (`str`): Path to the CSV file.
 
-No Escape Sequence Magic: \n, \t, commas (,), and quotes (") in strings are kept as literal characters. We CANNOT compile them (e.g., \n won’t turn into a newline).
-Big Files: Not great for massive CSVs (>1GB). The C++ version will handle these like a champ. 💪
-Encoding: Sticks to UTF-8 for now. Other encodings (e.g., UTF-16) might trip it up. 🌐
-Error Handling: Catches basic errors, but super messy CSVs (e.g., unclosed quotes) can still cause havoc. 🚧
+### `parse()`
 
-🔮 What’s Next?
+Parses the CSV file and returns a tuple containing columns and rows.
 
-C++ Version: Coming soon to crush it with:
-Speedy performance for huge files. ⚡️
-Better encoding support. 🌍
-Tougher error handling. 🛡️
+**Returns:**
 
+* `columns`: List of header names.
+* `rows`: List of parsed data rows.
 
-📜 License
-MIT License. Check out LICENSE for the deets. 📄
+### `display(columns, rows)`
+
+Displays the parsed columns and rows in a readable format.
+
+## Limitations
+
+### Escape Sequence Handling
+
+The parser does not interpret escape sequences. Characters such as `\n`, `\t`, commas (`,`), and quotation marks (`"`) within strings are treated as literal text.
+
+### Large Files
+
+Performance may be limited when processing very large files (greater than 1 GB). The planned C++ version is intended to improve performance for large datasets.
+
+### Encoding Support
+
+The parser currently assumes UTF-8 encoding. Other encodings, such as UTF-16, may not be fully supported.
+
+### Error Handling
+
+Basic validation is included, but severely malformed CSV files (such as files containing unclosed quotation marks) may still cause parsing issues.
+
+## Future Development
+
+The planned C++ implementation aims to provide:
+
+* Improved performance for large files.
+* Expanded encoding support.
+* More robust error handling and validation.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
